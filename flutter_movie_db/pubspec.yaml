@@ -1,0 +1,33 @@
+name: flutter_movie_db
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.9.0
+  json_annotation: ^4.9.0
+  go_router: ^16.1.0
+  flutter_bloc: ^9.1.1
+  dartz: ^0.10.1
+  get_it: ^8.2.0
+  equatable: ^2.0.7
+  collection: ^1.19.0
+  flutter_dotenv: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  json_serializable: ^6.9.5
+  build_runner: ^2.4.15
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - .env
