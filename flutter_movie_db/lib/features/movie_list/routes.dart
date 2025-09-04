@@ -1,7 +1,7 @@
-import 'package:flutter_movie_db/features/movies/presenter/pages/movies_page.dart';
+import 'package:flutter_movie_db/features/movie_list/presenter/pages/movie_list_page.dart';
 import 'package:go_router/go_router.dart';
 
-class MoviesRoutes {
+class MovieListRoutes {
   static const String all = '/movies';
   static const String nowPlaying = '/movies/now-playing';
   static const String popular = '/movies/popular';
@@ -11,7 +11,7 @@ class MoviesRoutes {
   static final List<GoRoute> routes = [
     GoRoute(
       path: all, 
-      builder: (context, state) => const MoviesPage(),
+      builder: (context, state) => const MovieListPage(),
     ),
   ];
 }
