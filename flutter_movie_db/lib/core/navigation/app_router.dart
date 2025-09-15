@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_movie_db/features/movie_detail/routes.dart';
 import 'package:flutter_movie_db/features/movie_list/routes.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,11 +13,10 @@ class AppRouter {
   
   AppRouter() : router = GoRouter(
     navigatorKey: AppNavigatorKey.navigatorKey,
+    initialLocation: MovieListRoutes.all,
     routes: [
       ...MovieListRoutes.routes,
+      ...MovieDetailRoutes.routes,
     ],
-    redirect: (context, state) {
-      return MovieListRoutes.all;
-    },
   );
 }

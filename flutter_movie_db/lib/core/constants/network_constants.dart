@@ -5,4 +5,5 @@ class NetworkConstants {
   static const String popularMoviesList = '/movie/popular';
   static const String topRatedMoviesList = '/movie/top_rated';
   static const String upcomingMoviesList = '/movie/upcoming';
+  static const String movieDetail = '/movie';
 }

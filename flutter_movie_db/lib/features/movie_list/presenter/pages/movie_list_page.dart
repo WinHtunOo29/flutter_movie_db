@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_movie_db/features/movie_detail/routes.dart';
 import 'package:flutter_movie_db/features/movie_list/presenter/bloc/movie_list_bloc.dart';
 
 class MovieListPage extends StatefulWidget {
@@ -127,17 +128,22 @@ class _MovieListPageState extends State<MovieListPage> {
       itemCount: movieList.results?.length > 10 ? 10 : movieList.results?.length ?? 0,
       itemBuilder: (context, index) {
         final movie = movieList.results?[index];
-        return SizedBox(
-          width: 120,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildMoviePoster(movie),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: _buildMovieTitle(movie),
-              ),
-            ],
+        return GestureDetector(
+          onTap: () {
+            MovieDetailRoutes.navigateToMovieDetail(context, movie.id.toString());
+          },
+          child: SizedBox(
+            width: 120,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildMoviePoster(movie),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: _buildMovieTitle(movie),
+                ),
+              ],
+            ),
           ),
         );
       },
