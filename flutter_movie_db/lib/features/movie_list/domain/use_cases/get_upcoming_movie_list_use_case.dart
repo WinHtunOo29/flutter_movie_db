@@ -8,7 +8,7 @@ class GetUpcomingMovieListUseCase {
 
   GetUpcomingMovieListUseCase({required this.movieListRepository});
 
-  Future<Either<Failure, MovieListResponseEntity>> call() async {
-    return movieListRepository.getUpcomingMovieList();
+  Future<Either<Failure, MovieListResponseEntity>> call({int page = 1}) async {
+    return movieListRepository.getUpcomingMovieList(page: page);
   }
 }

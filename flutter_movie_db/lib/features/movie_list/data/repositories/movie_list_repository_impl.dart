@@ -11,9 +11,9 @@ class MovieListRepositoryImpl extends MovieListRepository {
   MovieListRepositoryImpl({required this.movieListApi});
 
   @override
-  Future<Either<Failure, MovieListResponseEntity>> getNowPlayingMovieList() async {
+  Future<Either<Failure, MovieListResponseEntity>> getNowPlayingMovieList({int page = 1}) async {
     try {
-      final response = await movieListApi.getNowPlayingMovieList();
+      final response = await movieListApi.getNowPlayingMovieList(page: page);
       return Right(response);
     } catch (e,s) {
       final appException = AppExceptionFactory.fromException(e, s);
@@ -22,9 +22,9 @@ class MovieListRepositoryImpl extends MovieListRepository {
   }
 
   @override
-  Future<Either<Failure, MovieListResponseEntity>> getPopularMovieList() async {
+  Future<Either<Failure, MovieListResponseEntity>> getPopularMovieList({int page = 1}) async {
     try {
-      final response = await movieListApi.getPopularMovieList();
+      final response = await movieListApi.getPopularMovieList(page: page);
       return Right(response);
     } catch (e,s) {
       final appException = AppExceptionFactory.fromException(e, s);
@@ -33,9 +33,9 @@ class MovieListRepositoryImpl extends MovieListRepository {
   }
 
   @override
-  Future<Either<Failure, MovieListResponseEntity>> getTopRatedMovieList() async {
+  Future<Either<Failure, MovieListResponseEntity>> getTopRatedMovieList({int page = 1}) async {
     try {
-      final response = await movieListApi.getTopRatedMovieList();
+      final response = await movieListApi.getTopRatedMovieList(page: page);
       return Right(response);
     } catch (e,s) {
       final appException = AppExceptionFactory.fromException(e, s);
@@ -44,9 +44,9 @@ class MovieListRepositoryImpl extends MovieListRepository {
   }
 
   @override
-  Future<Either<Failure, MovieListResponseEntity>> getUpcomingMovieList() async {
+  Future<Either<Failure, MovieListResponseEntity>> getUpcomingMovieList({int page = 1}) async {
     try {
-      final response = await movieListApi.getUpcomingMovieList();
+      final response = await movieListApi.getUpcomingMovieList(page: page);
       return Right(response);
     } catch (e,s) {
       final appException = AppExceptionFactory.fromException(e, s);

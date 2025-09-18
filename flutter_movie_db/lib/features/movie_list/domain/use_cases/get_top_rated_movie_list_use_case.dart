@@ -8,7 +8,7 @@ class GetTopRatedMovieListUseCase {
 
   GetTopRatedMovieListUseCase({required this.movieListRepository});
 
-  Future<Either<Failure, MovieListResponseEntity>> call() async {
-    return movieListRepository.getTopRatedMovieList();
+  Future<Either<Failure, MovieListResponseEntity>> call({int page = 1}) async {
+    return movieListRepository.getTopRatedMovieList(page: page);
   }
 }

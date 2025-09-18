@@ -8,7 +8,7 @@ class GetPopularMovieListUseCase {
 
   GetPopularMovieListUseCase({required this.movieListRepository});
 
-  Future<Either<Failure, MovieListResponseEntity>> call() async {
-    return movieListRepository.getPopularMovieList();
+  Future<Either<Failure, MovieListResponseEntity>> call({int page = 1}) async {
+    return movieListRepository.getPopularMovieList(page: page);
   }
 }

@@ -16,6 +16,17 @@ enum MovieListType {
   upcoming,
 }
 
+extension MovieListTypeExtension on MovieListType {
+  String get name {
+    return switch (this) {
+      MovieListType.nowPlaying => 'Now Playing',
+      MovieListType.popular => 'Popular',
+      MovieListType.topRated => 'Top Rated',
+      MovieListType.upcoming => 'Upcoming',
+    };
+  }
+}
+
 class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
   final GetNowPlayingMovieListUseCase getNowPlayingMovieListUseCase;
   final GetPopularMovieListUseCase getPopularMovieListUseCase;
@@ -48,7 +59,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
 
       for (int i = 0; i < results.length; i++) {
         final result = results[i];
-        final useCaseName = ['NowPlaying', 'Popular', 'TopRated', 'Upcoming'][i];
+        final useCaseName = [MovieListType.nowPlaying.name, MovieListType.popular.name, MovieListType.topRated.name, MovieListType.upcoming.name][i];
         result.fold(
           (failure) {
             throw Exception('$useCaseName failed: ${failure.interpretation.message}');

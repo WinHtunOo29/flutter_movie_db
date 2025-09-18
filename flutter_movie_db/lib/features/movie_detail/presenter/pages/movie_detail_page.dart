@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_movie_db/core/di/injector.dart';
 import 'package:flutter_movie_db/features/movie_detail/presenter/bloc/movie_detail_bloc.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -12,25 +11,15 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  late MovieDetailBloc _movieDetailBloc;
-
   @override
   void initState() {
     super.initState();
-    _movieDetailBloc = getIt<MovieDetailBloc>();
-    _movieDetailBloc.add(LoadMovieDetailEvent(movieId: int.parse(widget.movieId)));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    context.read<MovieDetailBloc>().add(LoadMovieDetailEvent(movieId: int.parse(widget.movieId)));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MovieDetailBloc>(
-      create: (context) => _movieDetailBloc,
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
           title: const Text('Movie Details'),
@@ -51,8 +40,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             return const SizedBox.shrink();
           },
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildMovieDetailContent(movieDetail) {

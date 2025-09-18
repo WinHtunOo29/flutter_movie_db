@@ -7,6 +7,7 @@ import 'package:flutter_movie_db/features/movie_list/domain/use_cases/get_popula
 import 'package:flutter_movie_db/features/movie_list/domain/use_cases/get_top_rated_movie_list_use_case.dart';
 import 'package:flutter_movie_db/features/movie_list/domain/use_cases/get_upcoming_movie_list_use_case.dart';
 import 'package:flutter_movie_db/features/movie_list/presenter/bloc/movie_list_bloc.dart';
+import 'package:flutter_movie_db/features/movie_list/presenter/bloc/paginated_movie_list_bloc.dart';
 
 void movieListInjections() {
   // Data Sources
@@ -39,6 +40,15 @@ void movieListInjections() {
   // BLoC
   getIt.registerFactory<MovieListBloc>(
     () => MovieListBloc(
+      getNowPlayingMovieListUseCase: getIt(),
+      getPopularMovieListUseCase: getIt(),
+      getTopRatedMovieListUseCase: getIt(),
+      getUpcomingMovieListUseCase: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<PaginatedMovieListBloc>(
+    () => PaginatedMovieListBloc(
       getNowPlayingMovieListUseCase: getIt(),
       getPopularMovieListUseCase: getIt(),
       getTopRatedMovieListUseCase: getIt(),

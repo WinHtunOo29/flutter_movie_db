@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movie_db/features/movie_detail/routes.dart';
 import 'package:flutter_movie_db/features/movie_list/presenter/bloc/movie_list_bloc.dart';
+import 'package:flutter_movie_db/features/movie_list/routes.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieListPage extends StatefulWidget {
   const MovieListPage({super.key});
@@ -57,19 +59,19 @@ class _MovieListPageState extends State<MovieListPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildMovieSection(
-              'Now Playing',
+              MovieListType.nowPlaying,
               state.getNowPlayingMovieListResponseEntity,
             ),
             _buildMovieSection(
-              'Popular',
+              MovieListType.popular,
               state.getPopularMovieListResponseEntity,
             ),
             _buildMovieSection(
-              'Top Rated',
+              MovieListType.topRated,
               state.getTopRatedMovieListResponseEntity,
             ),
             _buildMovieSection(
-              'Upcoming',
+              MovieListType.upcoming,
               state.getUpcomingMovieListResponseEntity,
             ),
           ],
@@ -78,13 +80,13 @@ class _MovieListPageState extends State<MovieListPage> {
     );
   }
 
-  Widget _buildMovieSection(String title, dynamic movieList) {
+  Widget _buildMovieSection(MovieListType movieListType, dynamic movieList) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildMovieCategoryTitle(title),
+          _buildMovieCategoryTitle(movieListType),
           const SizedBox(height: 8),
           SizedBox(
             height: 200,
@@ -95,11 +97,11 @@ class _MovieListPageState extends State<MovieListPage> {
     );
   }
 
-  Widget _buildMovieCategoryTitle(String title) {
+  Widget _buildMovieCategoryTitle(MovieListType movieListType) {
     return Row(
       children: [
         Text(
-          title,
+          movieListType.name,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -108,7 +110,7 @@ class _MovieListPageState extends State<MovieListPage> {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () => _navigateToPaginatedMovieList(context, movieListType),
           style: TextButton.styleFrom(
             foregroundColor: Colors.blue[400],
             textStyle: const TextStyle(
@@ -125,12 +127,12 @@ class _MovieListPageState extends State<MovieListPage> {
   Widget _buildMovieList(movieList) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: movieList.results?.length > 10 ? 10 : movieList.results?.length ?? 0,
+      itemCount: movieList.results?.length ?? 0,
       itemBuilder: (context, index) {
         final movie = movieList.results?[index];
         return GestureDetector(
           onTap: () {
-            MovieDetailRoutes.navigateToMovieDetail(context, movie.id.toString());
+            _navigateToMovieDetail(context, movie.id.toString());
           },
           child: SizedBox(
             width: 120,
@@ -227,5 +229,19 @@ class _MovieListPageState extends State<MovieListPage> {
         ],
       ),
     );
+  }
+
+  void _navigateToMovieDetail(BuildContext context, String movieId) {
+    MovieDetailRoutes.navigateToMovieDetail(context, movieId);
+  }
+
+  void _navigateToPaginatedMovieList(BuildContext context, MovieListType movieListType) {
+    final route = switch (movieListType) {
+      MovieListType.nowPlaying => MovieListRoutes.nowPlaying,
+      MovieListType.popular => MovieListRoutes.popular,
+      MovieListType.topRated => MovieListRoutes.topRated,
+      MovieListType.upcoming => MovieListRoutes.upcoming,
+    };
+    context.push(route, extra: movieListType);
   }
 }
